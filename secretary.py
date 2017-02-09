@@ -29,24 +29,23 @@ def get_last_update_id(updates):
         update_ids.append(int(update["update_id"]))
     return max(update_ids)
 
-def get_last_chat_id_and_text(updates):
-    num_updates = len(updates["result"])
-    last_update = num_updates - 1
-    text = updates["result"][last_update]["message"]["text"]
-    chat_id = updates["result"][last_update]["message"]["chat"]["id"]
-    return (text, chat_id)
 
 def send_message(text, chat_id):
     text = urllib.parse.quote_plus(text)
     url = URL + "sendMessage?text={}&chat_id={}".format(text, chat_id)
     get_url(url)
 
-def echo_all(updates):
+def forward_message(chat_id, from_chat_id, message_id):
+    url = URL + "forwardMessage?chat_id={}&from_chat_id={}&message_id={}".format(chat_id, from_chat_id, message_id)
+    get_url(url)
+
+def forward_all(updates):
     for update in updates["result"]:
-        text = update["message"]["text"]
-        chat = update["message"]["chat"]["id"]
+        from_chat_id = update["message"]["chat"]["id"]
+        message_id = update["message"]["message_id"]
         #send_message(text, chat)
-        send_message(text, 143266172)#mmsamiei
+        #send_message(text, 143266172)#mmsamiei
+        forward_message(143266172,from_chat_id,message_id)
 
 def main():
     last_update_id = None
@@ -55,7 +54,7 @@ def main():
         updates = get_updates(last_update_id)
         if len(updates["result"]) > 0:
             last_update_id = get_last_update_id(updates) + 1
-            echo_all(updates)
+            forward_all(updates)
         time.sleep(0.5)
 
 if __name__== '__main__':
