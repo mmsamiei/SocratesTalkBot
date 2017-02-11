@@ -64,8 +64,9 @@ def do_all(updates):
                 print("mmsamiei Replys!")
                 from_chat_id = update["message"]["chat"]["id"]
                 message_id = update["message"]["message_id"]
-                who_replied_id = update["message"]["reply_to_message"]["forward_from"]["id"]
-                forward_message(who_replied_id,from_chat_id,message_id)
+                if("forward_from" in update["message"]["reply_to_message"]):
+                    who_replied_id = update["message"]["reply_to_message"]["forward_from"]["id"]
+                    forward_message(who_replied_id,from_chat_id,message_id)
                 return
 
         if("text" in update["message"]):
@@ -78,7 +79,9 @@ def do_all(updates):
                 poem_text=(poem["poem"])
                 from_chat_id = update["message"]["chat"]["id"]
                 send_message(poem_text, from_chat_id)
-
+                from_chat_id = update["message"]["chat"]["id"]
+                message_id = update["message"]["message_id"]
+                forward_message(143266172,from_chat_id,message_id)
 
             else:
                 from_chat_id = update["message"]["chat"]["id"]
@@ -86,11 +89,10 @@ def do_all(updates):
                 forward_message(143266172,from_chat_id,message_id)
 
 
-        #else:
-        #forward any message to me :)
-        from_chat_id = update["message"]["chat"]["id"]
-        message_id = update["message"]["message_id"]
-        forward_message(143266172,from_chat_id,message_id)
+        else:
+            from_chat_id = update["message"]["chat"]["id"]
+            message_id = update["message"]["message_id"]
+            forward_message(143266172,from_chat_id,message_id)
 
 
 
