@@ -4,6 +4,7 @@ import requests
 import urllib
 
 TOKEN = "341714084:AAEdbGYDWqEyy-R__QMRTP8DEgxZ2mSNw_k"
+mmsamiei_id = "143266172"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 
 def get_url(url):
@@ -50,6 +51,23 @@ def do_all(updates):
     for update in updates["result"]:
 
 
+
+
+    	#if(("reply_to_message" in update["message"]) and (update["message"]["from"]["id"] == mmsamiei_id)):
+    	#if 1==2:
+    	#	print ("samiei_replys")
+    	#	print ("hello")
+
+        if("reply_to_message" in update["message"]):
+            who_reply =(str) (update["message"]["from"]["id"])
+            if( who_reply == mmsamiei_id):
+                print("mmsamiei Replys!")
+                from_chat_id = update["message"]["chat"]["id"]
+                message_id = update["message"]["message_id"]
+                who_replied_id = update["message"]["reply_to_message"]["forward_from"]["id"]
+                forward_message(who_replied_id,from_chat_id,message_id)
+                return
+
         if("text" in update["message"]):
             ##    Text processing ##
             text = update["message"]["text"]
@@ -68,10 +86,11 @@ def do_all(updates):
                 forward_message(143266172,from_chat_id,message_id)
 
 
-        else:
-            from_chat_id = update["message"]["chat"]["id"]
-            message_id = update["message"]["message_id"]
-            forward_message(143266172,from_chat_id,message_id)
+        #else:
+        #forward any message to me :)
+        from_chat_id = update["message"]["chat"]["id"]
+        message_id = update["message"]["message_id"]
+        forward_message(143266172,from_chat_id,message_id)
 
 
 
