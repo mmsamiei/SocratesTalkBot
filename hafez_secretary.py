@@ -51,48 +51,41 @@ def do_all(updates):
     for update in updates["result"]:
 
 
+        if("message" in update):
 
+            if("reply_to_message" in update["message"]):
+                who_reply =(str) (update["message"]["from"]["id"])
+                if( who_reply == mmsamiei_id):
+                    print("mmsamiei Replys!")
+                    from_chat_id = update["message"]["chat"]["id"]
+                    message_id = update["message"]["message_id"]
+                    if("forward_from" in update["message"]["reply_to_message"]):
+                        who_replied_id = update["message"]["reply_to_message"]["forward_from"]["id"]
+                        forward_message(who_replied_id,from_chat_id,message_id)
+                    return
 
-    	#if(("reply_to_message" in update["message"]) and (update["message"]["from"]["id"] == mmsamiei_id)):
-    	#if 1==2:
-    	#	print ("samiei_replys")
-    	#	print ("hello")
-
-        if("reply_to_message" in update["message"]):
-            who_reply =(str) (update["message"]["from"]["id"])
-            if( who_reply == mmsamiei_id):
-                print("mmsamiei Replys!")
-                from_chat_id = update["message"]["chat"]["id"]
-                message_id = update["message"]["message_id"]
-                if("forward_from" in update["message"]["reply_to_message"]):
-                    who_replied_id = update["message"]["reply_to_message"]["forward_from"]["id"]
-                    forward_message(who_replied_id,from_chat_id,message_id)
-                return
-
-        if("text" in update["message"]):
+            if("text" in update["message"]):
             ##    Text processing ##
-            text = update["message"]["text"]
+                text = update["message"]["text"]
 
 
-            if( text =="فال حافظ"):
-                poem = get_poem()
-                poem_text=(poem["poem"])
-                from_chat_id = update["message"]["chat"]["id"]
-                send_message(poem_text, from_chat_id)
-                from_chat_id = update["message"]["chat"]["id"]
-                message_id = update["message"]["message_id"]
-                forward_message(143266172,from_chat_id,message_id)
+                if( text =="فال حافظ"):
+                    poem = get_poem()
+                    poem_text=(poem["poem"])
+                    from_chat_id = update["message"]["chat"]["id"]
+                    send_message(poem_text, from_chat_id)
+                    from_chat_id = update["message"]["chat"]["id"]
+                    message_id = update["message"]["message_id"]
+                    forward_message(143266172,from_chat_id,message_id)
 
+                else:
+                    from_chat_id = update["message"]["chat"]["id"]
+                    message_id = update["message"]["message_id"]
+                    forward_message(143266172,from_chat_id,message_id)
             else:
-                from_chat_id = update["message"]["chat"]["id"]
-                message_id = update["message"]["message_id"]
-                forward_message(143266172,from_chat_id,message_id)
-
-
-        else:
-            from_chat_id = update["message"]["chat"]["id"]
-            message_id = update["message"]["message_id"]
-            forward_message(143266172,from_chat_id,message_id)
+                    from_chat_id = update["message"]["chat"]["id"]
+                    message_id = update["message"]["message_id"]
+                    forward_message(143266172,from_chat_id,message_id)
 
 
 
