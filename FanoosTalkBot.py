@@ -3,8 +3,9 @@ import json
 import requests
 import urllib
 
-TOKEN = "341714084:AAEdbGYDWqEyy-R__QMRTP8DEgxZ2mSNw_k"
+TOKEN = "321327563:AAHFSm4SQ96HorBGI8V3Ok9BzGRLtkqaIp4"
 mmsamiei_id = "143266172"
+badri_id = "92811076"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 
 def get_url(url):
@@ -68,11 +69,8 @@ def do_all(updates):
             ##    Text processing ##
                 text = update["message"]["text"]
 
-                if( text == "/start"):
-                    message = " سلام ! جهت ارتباط با من می توانید حرف های خود را به سوکراتیس بزنید با تشکر "
-                    from_chat_id = update["message"]["chat"]["id"]
-                    send_message(message, from_chat_id)
-                elif( text =="فال حافظ"):
+
+                if( text =="فال حافظ"):
                     poem = get_poem()
                     poem_text=(poem["poem"])
                     from_chat_id = update["message"]["chat"]["id"]
@@ -80,14 +78,18 @@ def do_all(updates):
                     from_chat_id = update["message"]["chat"]["id"]
                     message_id = update["message"]["message_id"]
                     forward_message(143266172,from_chat_id,message_id)
+
+
                 else:
                     from_chat_id = update["message"]["chat"]["id"]
                     message_id = update["message"]["message_id"]
                     forward_message(143266172,from_chat_id,message_id)
+                    forward_message(badri_id,from_chat_id,message_id)
             else:
                     from_chat_id = update["message"]["chat"]["id"]
                     message_id = update["message"]["message_id"]
                     forward_message(143266172,from_chat_id,message_id)
+                    forward_message(badri_id,from_chat_id,message_id)
 
 
 
