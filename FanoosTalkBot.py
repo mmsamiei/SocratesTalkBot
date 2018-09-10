@@ -3,7 +3,7 @@ import json
 import requests
 import urllib
 
-TOKEN = "321327563:AAHFSm4SQ96HorBGI8V3Ok9BzGRLtkqaIp4"
+TOKEN = "321327563:AAHFSm4SQ96HorBGI8V3Ok9BzGRLtkqaIp4" # This is Old token and now is expired! so don't think demonic :)
 mmsamiei_id = "143266172"
 badri_id = "92811076"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
